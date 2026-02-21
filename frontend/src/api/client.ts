@@ -23,12 +23,15 @@ async function request<T>(
     (headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
   }
   const res = await fetch(url, { ...options, headers });
-  const data = await res.json().catch(() => ({}));
+  let data: unknown = {};
+  const contentType = res.headers.get('content-type');
+  if (contentType?.includes('application/json')) {
+    data = await res.json().catch(() => ({}));
+  }
   if (!res.ok) {
-    const err = new Error((data as ApiError).error || 'Erro na requisição') as Error & {
-      status: number;
-      details?: unknown;
-    };
+    const msg = (data as ApiError).error
+      || (res.status === 401 ? 'Email ou senha incorretos' : 'Erro na requisição');
+    const err = new Error(msg) as Error & { status: number; details?: unknown };
     err.status = res.status;
     err.details = (data as ApiError).details;
     throw err;

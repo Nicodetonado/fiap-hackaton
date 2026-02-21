@@ -23,7 +23,8 @@ export function Login() {
       login(token, user);
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro ao entrar');
+      const msg = err instanceof Error ? err.message : 'Erro ao entrar';
+      setError(msg);
     } finally {
       setLoading(false);
     }

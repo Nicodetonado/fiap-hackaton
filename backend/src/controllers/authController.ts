@@ -34,35 +34,56 @@ function getClientIp(req: Request): string | null {
 
 export const authController = {
   async register(req: Request, res: Response): Promise<void> {
-    const { email, password, name } = req.body;
-    const result = await authService.register(email, password, name);
-    res.status(201).json(result);
+    try {
+      const { email, password, name } = req.body;
+      const result = await authService.register(email, password, name);
+      res.status(201).json(result);
+    } catch (err) {
+      const e = err as Error & { statusCode?: number };
+      const status = e.statusCode ?? 500;
+      const message = e.message || 'Erro ao cadastrar';
+      res.status(status).json({ error: message });
+    }
   },
 
   async login(req: Request, res: Response): Promise<void> {
-    const { email, password } = req.body;
-    const result = await authService.login(email, password);
-    const ip = getClientIp(req);
     try {
-      await loginLogRepository.insert(
-        result.user.id,
-        result.user.email,
-        result.user.role,
-        ip
+      const { email, password } = req.body;
+      const result = await authService.login(email, password);
+      const ip = getClientIp(req);
+      try {
+        await loginLogRepository.insert(
+          result.user.id,
+          result.user.email,
+          result.user.role,
+          ip
+        );
+      } catch (err) {
+        console.error('Falha ao registrar log de login:', err);
+      }
+      console.log(
+        `[LOG ENTRADA] user_id=${result.user.id} email=${result.user.email} role=${result.user.role} ip=${ip ?? '-'}`
       );
+      res.json(result);
     } catch (err) {
-      console.error('Falha ao registrar log de login:', err);
+      const e = err as Error & { statusCode?: number };
+      const status = e.statusCode ?? 500;
+      const message = e.message || 'Erro ao entrar';
+      res.status(status).json({ error: message });
     }
-    console.log(
-      `[LOG ENTRADA] user_id=${result.user.id} email=${result.user.email} role=${result.user.role} ip=${ip ?? '-'}`
-    );
-    res.json(result);
   },
 
   async changePassword(req: AuthRequest, res: Response): Promise<void> {
-    const userId = req.userId!;
-    const { currentPassword, newPassword } = req.body;
-    await authService.changePassword(userId, currentPassword, newPassword);
-    res.status(204).send();
+    try {
+      const userId = req.userId!;
+      const { currentPassword, newPassword } = req.body;
+      await authService.changePassword(userId, currentPassword, newPassword);
+      res.status(204).send();
+    } catch (err) {
+      const e = err as Error & { statusCode?: number };
+      const status = e.statusCode ?? 500;
+      const message = e.message || 'Erro ao alterar senha';
+      res.status(status).json({ error: message });
+    }
   },
 };
