@@ -6,7 +6,6 @@ import { Button, Card, Input } from '../components/ui';
 export function TurmaForm() {
   const [name, setName] = useState('');
   const [subject, setSubject] = useState('');
-  const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,7 +19,6 @@ export function TurmaForm() {
       const turma = await turmasApi.create({
         name,
         subject,
-        slug: slug.trim() || undefined,
         description: description.trim() || null,
       });
       navigate(`/turmas/${turma.id}`);
@@ -43,7 +41,6 @@ export function TurmaForm() {
           )}
           <Input label="Nome da turma" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ex: 9º A" required />
           <Input label="Disciplina" value={subject} onChange={(e) => setSubject(e.target.value)} placeholder="Ex: Matemática" required />
-          <Input label="Slug (opcional)" value={slug} onChange={(e) => setSlug(e.target.value)} placeholder="Ex: matematica-9a" />
           <div className="input-wrap">
             <label className="input-label">Descrição da turma (opcional)</label>
             <textarea className="input" rows={3} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Ex: Turma de Matemática 9º ano - 2025" style={{ resize: 'vertical' }} />
