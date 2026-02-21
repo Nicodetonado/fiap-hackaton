@@ -34,7 +34,7 @@ async function run(): Promise<void> {
       hash('admin123'),
       hash('professor1'),
       hash('professor2'),
-      hash('AlunoPrimeiroAcesso'),
+      hash('aluno123'),
     ]);
 
     await client.query(
@@ -133,7 +133,7 @@ async function run(): Promise<void> {
     console.log('Usuários criados:');
     console.log('  Sysadmin: admin@escola.edu.br / admin123');
     console.log('  Professores: maria.silva@escola.edu.br / professor1, joao.santos@escola.edu.br / professor2');
-    console.log('  Alunos (senha AlunoPrimeiroAcesso): ana.costa@escola.edu.br, pedro.oliveira@escola.edu.br, carla.lima@escola.edu.br, lucas.ferreira@escola.edu.br, julia.souza@escola.edu.br');
+    console.log('  Alunos (senha aluno123): ana.costa@escola.edu.br, pedro.oliveira@escola.edu.br, carla.lima@escola.edu.br, lucas.ferreira@escola.edu.br, julia.souza@escola.edu.br');
     console.log('');
     console.log('Turmas: 4 (2 de Matemática, 1 Português, 1 Ciências) com blocos e materiais. Alunos matriculados em todas.');
   } finally {

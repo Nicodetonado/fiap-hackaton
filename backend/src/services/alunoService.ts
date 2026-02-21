@@ -6,7 +6,7 @@ import type { AlunoInTurma } from '../models/entities';
 
 const SALT_ROUNDS = 10;
 // quando o prof cadastra aluno que não tem conta ainda
-const DEFAULT_ALUNO_PASSWORD = 'AlunoPrimeiroAcesso';
+const DEFAULT_ALUNO_PASSWORD = 'aluno123';
 
 export const alunoService = {
   async listByTurma(turmaId: number, professorUserId: number): Promise<AlunoInTurma[] | null> {

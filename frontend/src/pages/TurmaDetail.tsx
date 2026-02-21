@@ -278,7 +278,7 @@ export function TurmaDetail() {
             </div>
           </form>
           <p style={{ fontSize: '0.875rem', color: 'var(--color-text-muted)', marginBottom: 'var(--space-2)' }}>
-            Se o email não existir, um usuário será criado com senha de primeiro acesso: <code>AlunoPrimeiroAcesso</code> (aluno cadastrado pela escola, sem cadastro prévio).
+            Se o email não existir, um usuário será criado com senha de primeiro acesso: <code>aluno123</code> (aluno cadastrado pela escola, sem cadastro prévio).
           </p>
           {alunos.length === 0 ? (
             <p style={{ color: 'var(--color-text-muted)' }}>Nenhum aluno cadastrado nesta turma.</p>

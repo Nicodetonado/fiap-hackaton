@@ -45,7 +45,7 @@ Frontend: `http://localhost:5173` (proxy `/api` → backend)
 
 ---
 
-Registro público (`/register` ou `POST /auth/register`) cria **aluno**. Professor só é criado pelo sysadmin em `POST /api/admin/users`. Aluno criado pelo professor na turma: senha `AlunoPrimeiroAcesso`. Qualquer usuário logado pode trocar a **própria** senha em **Trocar senha** (menu) ou `POST /auth/change-password`.
+Registro público (`/register` ou `POST /auth/register`) cria **aluno**. Professor só é criado pelo sysadmin em `POST /api/admin/users`. Aluno criado pelo professor na turma: senha `aluno123`. Qualquer usuário logado pode trocar a **própria** senha em **Trocar senha** (menu) ou `POST /auth/change-password`.
 
 **Primeiro sysadmin:** cadastre alguém pelo front e no banco rode:
 `UPDATE users SET role = 'sysadmin' WHERE email = 'seu@email.com';` — depois login de novo.
